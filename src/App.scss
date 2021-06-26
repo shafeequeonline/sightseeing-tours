@@ -1,0 +1,10 @@
+@import './scss/Vars';
+@import './scss/Default';
+@import './scss/Typography';
+@import './scss/Header';
+
+
+.container {
+  max-width: 1024px;
+  margin: auto;
+}

@@ -1,0 +1,30 @@
+@import '../../scss/Vars';
+
+.Search {
+  background-color: $primary_color;
+  padding: 1.25rem;
+
+  &__fields {
+    display: flex;
+  }
+
+  &__input {
+    padding: 1rem;
+    flex-grow: 1;
+
+    &:first-child {
+      width: 50%;
+    }
+  }
+
+  &__results {
+    display: flex;
+    flex-direction: column;
+    background-color: $secondary_color;
+    color: $primary_color;
+  }
+
+  &__results-item {
+    padding: 5px;
+  }
+}
