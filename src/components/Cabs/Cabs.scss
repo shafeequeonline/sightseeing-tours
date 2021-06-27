@@ -1,0 +1,24 @@
+@import '../../scss/Vars';
+
+.Cabs{
+  background-color: $brand_color;
+  padding: 15px;
+
+  &__premium {
+    display: flex;
+  }
+
+  &__ordinary {
+    display: flex;
+  }
+
+  &__card {
+    border: 1px solid $primary_color;
+    padding: 25px;
+    width: 25%;
+
+    img {
+      max-width: 100%;
+    }
+  }
+}

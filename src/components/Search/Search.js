@@ -1,15 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import AsyncSelect from 'react-select/async'
-
+import Select, { components } from 'react-select';
+import AsyncSelect from 'react-select/async';
 import './Search.scss';
+import { CabsContext } from "../../context/cabs-context";
 
 const Search = () => {
     const [ locations, setLocations ] = useState([]);
     const [ formValue, setFormValue ] = useState({ station: '', date: '', time: '', duration: ''});
-    const [ offers, setOffers ] = useState([])
 
+    /**
+     * Using React context to communicate between components
+     */
+    const { setOffers, setShowCabs } = useContext(CabsContext)
     /**
      * string from the search box
      */
@@ -19,17 +23,6 @@ const Search = () => {
         )
         const locationList = await data.json();
         callback(locationList.map((place) => ({label: place.label, placeId: place.placeId})))
-    }
-
-    /**
-     * searching the location
-     */
-    const searchLocation = (e) => {
-        e.preventDefault()
-        const searchTerm = e.target.value;
-        if(searchTerm.length >= 3) {
-            fetchLocations(searchTerm).then(location => location)
-        }
     }
 
     /**
@@ -52,6 +45,8 @@ const Search = () => {
             "type": "DURATION"
         }
 
+        console.log(requestBody)
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -60,30 +55,34 @@ const Search = () => {
         fetch('https://www.mydriver.com/api/v5/offers', requestOptions)
             .then(res => res.json())
             .then(data => setOffers(data))
-
-        console.log(offers)
+        setShowCabs(true)
     }
-
 
     const handleInputChange = (event) => {
         setFormValue( {...formValue, [event.target.name]: event.target.value })
+
     }
 
+    const Placeholder = props => {
+        return <components.Placeholder {...props} />;
+    };
     return (
         <div className="Search">
             <div className="Search__fields">
-
-                <form className="Search__form" name="search-form" onSubmit={searchCabs}>
+                <form className="Search__form" name="search-form" onSubmit={searchCabs} >
                     <AsyncSelect
+                        required
                         value={locations}
                         className="Search__select"
                         classNamePrefix="Search__select"
                         onChange={onLocationChange}
-                        placeHolder={'type location'}
                         loadOptions={fetchLocations}
+                        placeholder={'Enter your pickup point'}
+                        components={{ Placeholder }}
                     />
 
                     <input
+                        required
                         type="date"
                         name="date"
                         value={formValue.date}
@@ -93,6 +92,7 @@ const Search = () => {
                     />
 
                     <input
+                        required
                         type="time"
                         name="time"
                         value={formValue.time}
@@ -101,6 +101,7 @@ const Search = () => {
                         onChange={handleInputChange}
                     />
                     <input
+                        required
                         type="text"
                         name="duration"
                         value={formValue.duration}
