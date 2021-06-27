@@ -2,29 +2,62 @@
 
 .Search {
   background-color: $primary_color;
-  padding: 1.25rem;
+  border-top: 2px solid $primary_color;
+  position: relative;
 
-  &__fields {
+  &__form {
     display: flex;
   }
 
-  &__input {
-    padding: 1rem;
-    flex-grow: 1;
+  &__select {
+    width: 50%;
+    color: $primary_color;
 
-    &:first-child {
-      width: 50%;
+    &__control.Search__select__control {
+      height: $input_height;
+      border-radius: 0;
+      border: 0;
+      box-shadow: none;
+
+      &:hover {
+        outline: none;
+        border: 0;
+      }
+    }
+
+    &__menu {
+      margin-top: 0;
     }
   }
 
-  &__results {
-    display: flex;
-    flex-direction: column;
-    background-color: $secondary_color;
-    color: $primary_color;
+  &__input {
+    padding: 15px;
+    flex-grow: 1;
+    height: $input_height;
+  }
+
+  &__button {
+    background-color: $brand_color;
+    color: $secondary_color;
+    height: $input_height;
+    padding: 0 25px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+      background-color: rgba($brand_color, 0.8);
+    }
   }
 
   &__results-item {
     padding: 5px;
+    cursor: pointer;
+    transition: $transition;
+    font-weight: 700;
+
+    &:hover {
+      color: $brand_color;
+    }
   }
 }
