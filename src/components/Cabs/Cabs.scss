@@ -28,7 +28,8 @@
     }
 
     &:hover {
-      background-color: rgba($secondary_color, 0.1);
+      background-color: rgba($primary_color, 0.1);
+      border-radius: 10px;
       img {
         transform: scale(1.06) translateX(5px) translateY(5px);
       }

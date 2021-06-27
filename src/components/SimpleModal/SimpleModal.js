@@ -1,13 +1,10 @@
-import React, {useState} from 'react';
+import React, {forwardRef, useState} from 'react';
 import './SimpleModal.scss';
 
-const SimpleModal = (prop) => {
+const SimpleModal = forwardRef((prop, ref) => {
     const [data, setData] = useState(prop.data)
     return(
-        <div className="SimpleModal">
-            {
-                console.log(prop.data)
-            }
+        <div className="SimpleModal" {...prop} ref={ref} >
             {
 
                     <div className="SimpleModal__content">
@@ -37,8 +34,8 @@ const SimpleModal = (prop) => {
                                     src={data.vehicleType.images.web}
                                     alt={data.vehicleType.title}
                                 />
-                                {data.vehicleType.marketingImages.map(image => (
-                                    <img src={image.xxhdpi} className="SimpleModal__gallery--main"/>
+                                {data.vehicleType.marketingImages.map((image, index) => (
+                                    <img src={image.xxhdpi} key={index} className="SimpleModal__gallery--main"/>
                                 ))}
                             </div>
                         </div>
@@ -48,6 +45,6 @@ const SimpleModal = (prop) => {
             }
         </div>
     )
-}
+})
 
 export default SimpleModal;
