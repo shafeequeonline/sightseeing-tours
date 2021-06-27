@@ -5,19 +5,26 @@
   border-top: 2px solid $primary_color;
   position: relative;
 
+  &__fields {
+  }
+
   &__form {
     display: flex;
+    padding: 0px 15px 5px;
+    background-color: $secondary_color;
   }
 
   &__select {
-    width: 50%;
+    width: 40%;
     color: $primary_color;
+    margin-right: 15px;
 
     &__control.Search__select__control {
       height: $input_height;
       border-radius: 0;
       border: 0;
       box-shadow: none;
+      margin-top: 13px;
 
       &:hover {
         outline: none;
@@ -28,12 +35,48 @@
     &__menu {
       margin-top: 0;
     }
+
+    &__value-container {
+      height: 51px;
+
+      &:before {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        content: "\00a0";
+        position: absolute;
+        transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+        pointer-events: none;
+      }
+
+      &:hover {
+        &:before {
+          border-bottom: 2px solid rgba(0, 0, 0, 0.87);
+        }
+      }
+    }
+
+    &__indicator.Search__select__indicator {
+      display: none;
+    }
+
+    &__indicator-separator.Search__select__indicator-separator {
+      display: none;
+    }
   }
 
   &__input {
     padding: 15px;
     flex-grow: 1;
     height: $input_height;
+    margin-right: 15px !important;
+
+    &--select {
+      padding: 15px;
+      height: $input_height;
+      margin:14px 15px 0 0;
+    }
   }
 
   &__button {
@@ -41,6 +84,8 @@
     color: $secondary_color;
     height: $input_height;
     padding: 0 25px;
+    margin-top: 14px;
+    margin-bottom: 8px;
     font-size: 15px;
     cursor: pointer;
     transition: $transition;

@@ -1,14 +1,27 @@
+
 import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import Select, { components } from 'react-select';
+import { faSearch, faClock } from '@fortawesome/free-solid-svg-icons';
+import { components } from 'react-select';
 import AsyncSelect from 'react-select/async';
-import './Search.scss';
 import { CabsContext } from "../../context/cabs-context";
+import DateFnsUtils from '@date-io/date-fns';
+
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+    KeyboardTimePicker,
+} from '@material-ui/pickers';
+import {Select, MenuItem} from '@material-ui/core';
+
+import './Search.scss';
+
 
 const Search = () => {
     const [ locations, setLocations ] = useState([]);
-    const [ formValue, setFormValue ] = useState({ station: '', date: '', time: '', duration: ''});
+    const [ formValue, setFormValue ] = useState({ station: '', duration: ''});
+    const [ selectedDate, setSelectedDate ] = useState(new Date());
+    const [ selectedTime, setSelectedTime ] = useState(new Date());
 
     /**
      * Using React context to communicate between components
@@ -33,19 +46,20 @@ const Search = () => {
         setFormValue({...formValue, station: location})
     }
 
+    /**
+     * Fetching the cabs with the details from the form
+     */
     const searchCabs = (event) => {
         event.preventDefault()
-        const { station, date, time, duration } = formValue
-
+        const { station, duration } = formValue
+        const durationInMinutes = duration * 60;
         const requestBody = {
             "originPlaceId": station.placeId,
-            "selectedStartDate": date,
-            "duration": duration,
-            "preferredTime": time,
+            "selectedStartDate": selectedDate.toDateString(),
+            "preferredTime": selectedTime.toTimeString(),
+            "duration": durationInMinutes,
             "type": "DURATION"
         }
-
-        console.log(requestBody)
 
         const requestOptions = {
             method: 'POST',
@@ -58,14 +72,42 @@ const Search = () => {
         setShowCabs(true)
     }
 
+    /**
+     * Handling the input change
+     */
     const handleInputChange = (event) => {
         setFormValue( {...formValue, [event.target.name]: event.target.value })
-
     }
 
+    /**
+     * Handling the Date change
+     */
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
+
+    /**
+     * Handling the Time change
+     */
+    const handleTimeChange = (time) => {
+        setSelectedTime(time);
+    };
+
+    /**
+     * rendering placeholder for React Select
+     */
     const Placeholder = props => {
         return <components.Placeholder {...props} />;
     };
+
+    const durations = [
+        {value: 1, label: '1 Hour'},
+        {value: 1.5, label: '1.5 Hours'},
+        {value: 2, label: '2 Hours'},
+        {value: 2.5, label: '2.5 Hours'},
+        {value: 3, label: '3 Hours'},
+        {value: 3.5, label: '3.5 Hours'}
+    ]
     return (
         <div className="Search">
             <div className="Search__fields">
@@ -81,34 +123,55 @@ const Search = () => {
                         components={{ Placeholder }}
                     />
 
-                    <input
-                        required
-                        type="date"
-                        name="date"
-                        value={formValue.date}
-                        placeholder="Select Date"
-                        className="Search__input"
-                        onChange={handleInputChange}
-                    />
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <KeyboardDatePicker
+                            disableToolbar
+                            variant="inline"
+                            className="Search__input"
+                            id="date-picker-inline"
+                            name="date"
+                            format="MM/dd/yyyy"
+                            margin="normal"
+                            label="Select Date"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                        />
+                        <KeyboardTimePicker
+                            className="Search__input"
+                            variant="inline"
+                            name="time"
+                            margin="normal"
+                            label="Select Time"
+                            value={selectedTime}
+                            onChange={handleTimeChange}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change time',
+                            }}
+                            keyboardIcon={<FontAwesomeIcon icon={faClock} />}
+                        />
 
-                    <input
-                        required
-                        type="time"
-                        name="time"
-                        value={formValue.time}
-                        placeholder="Select Time"
-                        className="Search__input"
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        required
-                        type="text"
-                        name="duration"
-                        value={formValue.duration}
-                        placeholder="Select Duration (in Hours)"
-                        className="Search__input"
-                        onChange={handleInputChange}
-                    />
+                        <Select
+                            displayEmpty
+                            labelId="select-label"
+                            className="Search__input--select"
+                            id="select"
+                            label="Select Duration"
+                            name="duration"
+                            value={formValue.duration}
+                            onChange={handleInputChange}
+                            inputProps={{ 'aria-label': 'Without label' }}
+                        >
+                            <MenuItem value="" disabled>Duration</MenuItem>
+                            {
+                                durations.map(time => (
+                                    <MenuItem value={time.value} >{time.label}</MenuItem>
+                                ))
+                            }
+                        </Select>
+                    </MuiPickersUtilsProvider>
 
                     <button
                         type="submit"

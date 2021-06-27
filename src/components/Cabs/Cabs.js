@@ -7,38 +7,30 @@ const Cabs = () => {
     const premiumCabs = offers.filter(car => car.group === "Premium")
     const cabs = offers.filter(car => car.group !== "Premium")
 
-    console.log(offers, premiumCabs, cabs)
-
     return (
         <div className="Cabs">
             <div className="Cabs__premium">
                 {
-                    premiumCabs.map(car => (
-                        <div className="Cabs__card">
-                            Description: {car.vehicleType.description} <br/>
-                            Title: {car.vehicleType.title}<br/>
-                            Class: {car.vehicleType.group}<br/>
-                            Amount: {car.amount} {car.currency}<br/>
+                    premiumCabs.map((car, index) => (
+                        <div className="Cabs__card Cabs__card--prem" key={index}>
+                            <span className="Cabs__title">{car.vehicleType.title}</span>
+                            <div className="Cabs__group">{car.group}</div>
                             <img src={car.vehicleType.images.web} alt={car.vehicleType.title} />
-                            <br/>
-                            <br/>
-                            <br/>
+                            <div className="Cabs__description">{car.vehicleType.description} </div>
+                            <div className="Cabs__price">{(car.amount / car.duration).toFixed(2)} <span className="Cabs__price--currency">{car.currency}</span> </div>
                         </div>
                     ))
                 }
             </div>
             <div className="Cabs__ordinary">
                 {
-                    cabs.map(car => (
-                        <div className="Cabs__card">
-                            Description: {car.vehicleType.description} <br/>
-                            Title: {car.vehicleType.title}<br/>
-                            Class: {car.vehicleType.class}<br/>
-                            Amount: {car.amount} {car.currency}<br/>
+                    cabs.map((car, index) => (
+                        <div className="Cabs__card Cabs__card--prem" key={index}>
+                            <span className="Cabs__title">{car.vehicleType.title}</span>
+                            <div className="Cabs__group">{car.group}</div>
                             <img src={car.vehicleType.images.web} alt={car.vehicleType.title} />
-                            <br/>
-                            <br/>
-                            <br/>
+                            <div className="Cabs__description">{car.vehicleType.description} </div>
+                            <div className="Cabs__price">{(car.amount / car.duration).toFixed(2)} <span className="Cabs__price--currency">{car.currency}</span> </div>
                         </div>
                     ))
                 }

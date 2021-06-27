@@ -13,12 +13,57 @@
   }
 
   &__card {
-    border: 1px solid $primary_color;
     padding: 25px;
     width: 25%;
+    color: $primary_color;
+    cursor: pointer;
+    transition: $transition;
 
     img {
-      max-width: 100%;
+      width: 80%;
+      margin: auto;
+      transition: $transition;
+    }
+
+    &:hover {
+      background-color: rgba($secondary_color, 0.1);
+      img {
+        transform: scale(1.06) translateX(5px) translateY(5px);
+      }
+    }
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 5px 10px;
+    display: inline-block;
+    color: $secondary_color;
+    border-bottom: 1px dashed $primary_color;
+    border-left: 1px solid $primary_color;
+  }
+
+  &__group {
+    font-size: 16px;
+    line-height: 25px;
+    border-left: 1px solid $primary_color;
+    padding: 5px 10px;
+  }
+
+  &__description {
+
+  }
+
+  &__price {
+    font-size: 32px;
+    font-weight: 300;
+    color: $secondary_color;
+    margin: 10px 0 0;
+    text-align: right;
+
+    &--currency {
+      font-size: 20px;
+      font-weight: 400;
     }
   }
 }
