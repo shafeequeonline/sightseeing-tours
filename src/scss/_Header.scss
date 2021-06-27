@@ -6,4 +6,7 @@
     justify-content: space-between;
     padding: 10px 15px;
     position: relative;
+    border: 5px solid $brand_color;
+    border-bottom: 0;
+    border-radius: 15px 15px 0 0;
 }

@@ -1,0 +1,62 @@
+@import '../../scss/Vars';
+
+.SimpleModal {
+  width: 50%;
+  margin: auto;
+  background-color: $secondary_color;
+  color: $primary_color;
+
+  &__content {
+    display: flex;
+  }
+
+  &__column {
+    width: 50%;
+    padding: 20px;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 15px 0;
+
+    li {
+      position: relative;
+      padding-left: 16px;
+      &:before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 10px;
+        background-color: $brand_color;
+        position: absolute;
+        top: 7px;
+        left: 0px;
+      }
+    }
+  }
+
+  &__price {
+    color: $primary_color;
+    font-weight: 700;
+  }
+
+  &__gallery {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
+    position: relative;
+
+    &--main {
+      width: 80%;
+    }
+
+    &--thumb {
+      position: absolute;
+      width: 250px ;
+      left: -40px;
+      bottom: -50px;
+    }
+  }
+}

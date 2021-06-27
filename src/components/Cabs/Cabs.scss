@@ -3,6 +3,8 @@
 .Cabs{
   background-color: $brand_color;
   padding: 15px;
+  border-radius: 15px;
+  margin-top: 5px;
 
   &__premium {
     display: flex;
@@ -50,10 +52,6 @@
     padding: 5px 10px;
   }
 
-  &__description {
-
-  }
-
   &__price {
     font-size: 32px;
     font-weight: 300;
@@ -65,5 +63,9 @@
       font-size: 20px;
       font-weight: 400;
     }
+  }
+
+  &__modal {
+    display: flex;
   }
 }

@@ -113,7 +113,7 @@ const Search = () => {
             <div className="Search__fields">
                 <form className="Search__form" name="search-form" onSubmit={searchCabs} >
                     <AsyncSelect
-                        required
+                        autoFocus={true}
                         value={locations}
                         className="Search__select"
                         classNamePrefix="Search__select"
@@ -154,6 +154,7 @@ const Search = () => {
                         />
 
                         <Select
+                            required
                             displayEmpty
                             labelId="select-label"
                             className="Search__input--select"
@@ -166,8 +167,8 @@ const Search = () => {
                         >
                             <MenuItem value="" disabled>Duration</MenuItem>
                             {
-                                durations.map(time => (
-                                    <MenuItem value={time.value} >{time.label}</MenuItem>
+                                durations.map((time, index) => (
+                                    <MenuItem key={index} value={time.value} >{time.label}</MenuItem>
                                 ))
                             }
                         </Select>

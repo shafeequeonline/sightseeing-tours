@@ -1,9 +1,10 @@
 @import '../../scss/Vars';
 
 .Search {
-  background-color: $primary_color;
-  border-top: 2px solid $primary_color;
   position: relative;
+  border: 5px solid $brand_color;
+  border-radius: 0 0 15px 15px;
+  background-color: $secondary_color;
 
   &__fields {
   }
@@ -11,7 +12,7 @@
   &__form {
     display: flex;
     padding: 0px 15px 5px;
-    background-color: $secondary_color;
+    border-radius: 0 0 15px 15px;
   }
 
   &__select {
