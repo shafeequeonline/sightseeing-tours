@@ -17,7 +17,6 @@ function App() {
         <Header/>
         <CabsContext.Provider value={{offers, setOffers, showCabs, setShowCabs}}>
             <Search/>
-
             {showCabs ? <Cabs/>: ''}
         </CabsContext.Provider>
     </div>
