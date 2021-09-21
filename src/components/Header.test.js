@@ -13,7 +13,7 @@ describe('Header Component', () => {
     });
 
     it('should contain the text',  () => {
-        const wrapper = shallow(<div className="Header">SIXT | Sightseeing</div>);
-        expect(wrapper.text()).toEqual("SIXT | Sightseeing")
+        const wrapper = shallow(<div className="Header">Cabs | Sightseeing</div>);
+        expect(wrapper.text()).toEqual("Cabs | Sightseeing")
     });
 })
